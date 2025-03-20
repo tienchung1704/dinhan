@@ -66,12 +66,14 @@ const Contact = ({url}) => {
         <div className="modal" onClick={() => setShowModal(false)}>
           <form action="">
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <h3>Reply to Contact</h3>
+            <h3>Reply to Contact:</h3>
             <div className='modal-content1'>
             <span htmlFor="responseT">Response :</span>
-            <textarea name='responseT' id='responseT'></textarea>
+            <textarea name='responseT' id='responseT'>
+
+            </textarea>
             </div>
-            <button id='btnReply' >Reply</button>
+            <button id='btnReply'>Reply</button>
           </div>
           </form>
 

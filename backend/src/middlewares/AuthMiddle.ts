@@ -13,8 +13,14 @@ export const checkAuth = async (req: Request, res: Response, next: NextFunction)
         const token_decode = jwt.verify(token, "random#secret") as jwt.JwtPayload;
         req.body.userId = token_decode.userId;
         next();
-    }catch(err){
-        console.log(err);
-        res.json({ success: false , message : "Error"});
+    }catch(err: any){
+        if (err.name === "TokenExpiredError") {
+            return res.status(401).json({ success: false, message: "Token expired" });
+        }
+        if (err.name === "JsonWebTokenError") {
+            return res.status(401).json({ success: false, message: "Invalid token" });
+        }
+
+        return res.status(500).json({ success: false, message: "Internal server error" });
     }
 }   

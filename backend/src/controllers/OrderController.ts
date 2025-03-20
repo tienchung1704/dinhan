@@ -143,7 +143,7 @@ class OrderController {
           secure: false,
           auth: {
             user: "tien.chungloveu@gmail.com",
-            pass: "your-pass",
+            pass: "btzu wwgu ulfs koqy",
           },
         });
 
