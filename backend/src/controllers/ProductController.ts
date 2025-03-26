@@ -65,6 +65,19 @@ class ProductController {
       res.json({ success: false, message: "Not found" });
     }
   }
+  static async editProductById(req: Request, res: Response): Promise<any>{
+    const { name , price , description , isTrending , category} = req.body
+    const id: String = req.params.id;
+    console.log("Headers:", req.headers);
+    console.log("Body:", req.body);
+    console.log("Params:", req.params);    try{
+      await ProductService.updateProductById({ id, name, price, description, isTrending, category })
+      res.json({success: true , message : "successfully"})
+
+    }catch(err){
+      res.json({success: false , message : "cant update"})
+    }
+  }
 }
 
 export default ProductController;

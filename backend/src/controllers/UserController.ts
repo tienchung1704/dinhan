@@ -5,13 +5,12 @@ import bcrypt from "bcrypt";
 import validator from "validator";
 
 const createToken = (userId: string) => {
-  return jwt.sign({ userId }, "random#secret");
+  return jwt.sign({ userId }, "random#secret", { expiresIn: "10s" });
 };
-
 
 class UserController {
   static async loginUser(req: Request, res: Response): Promise<any> {
-    const email = req.body.email;     
+    const email = req.body.email;
     const password = req.body.password;
     try {
       const user = await UserService.loginUser(email);
@@ -21,33 +20,38 @@ class UserController {
       const isMatch = await bcrypt.compare(password, user.password);
       if (!isMatch) {
         return res.json({ success: false, message: "Incorrect password" });
-      }else{
+      } else {
         const token = createToken(user.id);
         res.json({ success: true, token: token });
       }
-
     } catch (err) {
       console.log(err);
       res.json({ success: false, message: (err as Error).message });
     }
   }
-  static async changePassword(req: Request, res: Response): Promise<any>{
-    const {password , newpassword , userId} = req.body;
-    try{
+  static async changePassword(req: Request, res: Response): Promise<any> {
+    const { password, newpassword, userId } = req.body;
+    try {
       const user = await UserService.loginUser(userId);
       const isMatch = await bcrypt.compare(password, user.password);
       if (!isMatch) {
-        return res.status(401).json({ success: false, message: "Incorrect password" });
+        return res
+          .status(401)
+          .json({ success: false, message: "Incorrect password" });
       }
       const salt = await bcrypt.genSalt(10);
       const hashedNewPassword = await bcrypt.hash(newpassword, salt);
-      await UserService.changePassword({ userId, newpassword: hashedNewPassword });
-      res.status(200).json({ success: true, message: "Password updated successfully" });
-    }catch(err){
+      await UserService.changePassword({
+        userId,
+        newpassword: hashedNewPassword,
+      });
+      res
+        .status(200)
+        .json({ success: true, message: "Password updated successfully" });
+    } catch (err) {
       console.error(err);
       res.status(500).json({ success: false, message: "Server error" });
     }
-
   }
 
   static async resgisterUser(req: Request, res: Response): Promise<any> {
@@ -55,23 +59,7 @@ class UserController {
     const email = req.body.email;
     const password = req.body.password;
     try {
-      const exists = await UserService.loginUser(email);
-      console.log("eca",exists);
-      if (!exists) {
-        const salt = await bcrypt.genSalt(10);
-        const hashedPassword = await bcrypt.hash(password, salt);
-
-        const user = await UserService.addNewUser({
-          name,
-          email,
-          password: hashedPassword,
-        });
-
-        const token = createToken(user.id);
-        res.json({ success: true, token: token });
-      } else {
-        return res.json({ success: false, message: "User already exists" });
-      }
+      const exists = await UserService.ktEmail(email);
       if (!validator.isEmail(email)) {
         return res.json({ success: false, message: "Invalid email" });
       }
@@ -80,6 +68,19 @@ class UserController {
           success: false,
           message: "Password must be atleast 6 characters",
         });
+      }
+      if (exists.length === 0) {
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(password, salt);
+        const user = await UserService.addNewUser({
+          name,
+          email,
+          password: hashedPassword,
+        });
+        const token = createToken(user.id);
+        res.json({ success: true, token: token });
+      } else {
+        return res.json({ success: false, message: "User already exists" });
       }
     } catch (err) {
       console.log(err);

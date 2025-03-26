@@ -6,7 +6,7 @@
     border-top: 0;
     font-size: max(1vw, 10px);
 }
-hr{
+.sidebar hr{
     width: 70%;
     border: none;
     border-top: 1px solid #eae9e5; /* Màu xám nhạt */

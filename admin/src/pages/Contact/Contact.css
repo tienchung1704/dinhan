@@ -50,11 +50,13 @@
     border-radius: 10px;
 }
 #responseT{
-    outline: none;
     width: 500px;
     height: 300px;
     margin: 0 auto;
-
+    background-color: white;
+    border-radius: 12px;
+    border: 2px solid black;
+    padding: 10px;
 }
 .modal{
     position: absolute;

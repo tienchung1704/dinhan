@@ -17,5 +17,5 @@ productRouter.post("/add", upload.single("image"), ProductController.addProduct)
 productRouter.get("/list", ProductController.listProduct);
 productRouter.post("/remove", ProductController.removeProduct);
 productRouter.get("/:id",ProductController.getProductDetail);
-
+productRouter.post("/edit/:id", ProductController.editProductById);
 export default productRouter;

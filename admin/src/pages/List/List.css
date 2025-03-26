@@ -21,11 +21,17 @@
     outline: none;
 }
 .btn-edit{
-    background-color: lightgreen;
+    background-color: white;
+    border: 1px solid rgb(82, 235, 82);
     border-radius: 3px;
 }
 .btn-delete{
-    background-color: rgb(220, 28, 28);
+    background-color: white;
+    border-radius: 3px;
+    border: 1px solid rgb(220, 28, 28);
+
+
+
 }
 
 .list-table-format.title{

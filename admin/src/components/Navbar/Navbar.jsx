@@ -1,9 +1,23 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./Navbar.css";
+import axios from "axios";
+import {toast} from "react-toastify"
 import { assets } from "../../assets/assets";
 
-const Navbar = () => {
+const Navbar = ({url}) => {
+    const [list, setList] = useState([]);
+  
+  const fetchList = async () => {
+    const response = await axios.get(`${url}/api/admin/list`);
+    if (response.data.success) {
+      console.log(response.data.data);
+      setList(response.data.data);
+    } else {
+      toast.error("Error");
+    }
+  };
   useEffect(() => {
+    fetchList();
     const toggle = document.getElementById("visual-toggle");
 
     // Function to apply the stored mode preference
@@ -46,7 +60,7 @@ const Navbar = () => {
   return (
     <div>
       <div className="navbar">
-        <img className="logo" src={assets.logo} alt="" />
+        <h1>Xin Chao: {list[0].email}</h1>
         <div className="toggle-switch">
           <label
             htmlFor="visual-toggle"
@@ -62,7 +76,6 @@ const Navbar = () => {
             <span className="slider"></span>
           </label>
         </div>
-
         <img className="profile" src={assets.profile_image} alt="" />
       </div>
     </div>

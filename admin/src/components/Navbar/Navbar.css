@@ -392,4 +392,7 @@
     -webkit-box-shadow: none;
     box-shadow: none;
   }
-  
+.navbar h1{
+  font-size: 24px;
+  font-weight: bold;
+}

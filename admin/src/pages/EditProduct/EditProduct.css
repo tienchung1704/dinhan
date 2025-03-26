@@ -1,0 +1,93 @@
+#editContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 100px;
+  border: 1px solid gray;
+  width: 1260px;
+  margin-left: 170px;
+  height: 600px;
+  border-radius: 12px;
+  padding: 20px;
+  background-color: rgba(190, 229, 243, 0.881);
+}
+#editContext {
+  display: grid;
+  gap: 20px;
+  grid-row: 10px;
+}
+#editDescription {
+  margin-top: 40px;
+  display: flex;
+  gap: 10px;
+}
+#inputCss {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: space-between;
+}
+#inputCate {
+  border: 1px solid black;
+  width: 140px;
+  padding: 3px;
+  height: 40px;
+  background-color: white;
+  text-align: center;
+  border-radius: 8px;
+}
+#nonono {
+  text-align: center;
+}
+#yesyesyes123 {
+  display: flex;
+  flex-direction: row;
+  gap: 50px;
+}
+#btnEdit {
+  border: 1px solid black;
+  background-color: white;
+  padding: 3px;
+  width: 120px;
+  margin-top: 50px;
+  align-items: center;
+  border-radius: 9px;
+}
+#inputCss input {
+  border: 1px solid black;
+  width: 140px;
+  padding: 3px;
+  height: 40px;
+  background-color: white;
+  text-align: center;
+  border-radius: 8px;
+}
+#inputCss button{
+  border: 1px solid black;
+  width: 140px;
+  padding: 3px;
+  height: 40px;
+  background-color: white;
+  text-align: center;
+  border-radius: 8px;
+}
+#editContainer textarea {
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid black;
+  border-radius: 10px;
+  width: 300px;
+  height: 300px;
+  padding: 10px;
+  background-color: white;
+}
+#editImg {
+  display: flex;
+  justify-content: space-between;
+}
+#editImg1 {
+  border: 1px solid black;
+  width: 300px;
+  height: 300px;
+  margin-top: 40px;
+  border-radius: 10px;
+}

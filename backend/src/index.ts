@@ -13,6 +13,7 @@ import contactRouter from "@routers/contactRouter";
 import postRouter from "@routers/postRouter";
 import axios from "axios";
 import crypto from "crypto";
+import userAdminRouter from "@routers/userAdminRouter";
 
 const config = {
   verifyToken: process.env.VERIFY_TOKEN || "default_verify_token",
@@ -54,6 +55,8 @@ app.use("/api/cart", cartRouter);
 app.use("/api/order", orderRouter);
 app.use("/api/contact", contactRouter);
 app.use("/api/post", postRouter);
+app.use("/api/admin", userAdminRouter);
+
 
 app.use("/images", express.static("uploads")); //mount the folder at this endpoint. images can be accessed by /images/filename
 
