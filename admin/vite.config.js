@@ -8,9 +8,13 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
+  resolve: {
+    alias: [{ find: "@", replacement: "/src" }],
+  },
   server: {
     watch: {
       usePolling: true
     }
-  }
+  },
+
 })

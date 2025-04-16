@@ -14,6 +14,7 @@ export const checkAuth = async (req: Request, res: Response, next: NextFunction)
         req.body.userId = token_decode.userId;
         next();
     }catch(err: any){
+        console.error("JWT Verification Error:", err);
         if (err.name === "TokenExpiredError") {
             return res.status(401).json({ success: false, message: "Token expired" });
         }

@@ -2,13 +2,18 @@
   display: flex;
   flex-direction: row;
   gap: 100px;
-  border: 1px solid gray;
+  border: 1px solid lightblue;
   width: 1260px;
-  margin-left: 170px;
   height: 600px;
   border-radius: 12px;
   padding: 20px;
-  background-color: rgba(190, 229, 243, 0.881);
+  background-color: white;
+  margin-bottom: 200px;
+  box-shadow: 0px 0px 10px 0px lightblue;
+}
+#editContainer select{
+  border: 1px solid lightblue;
+  box-shadow: 0px 0px 10px 0px lightblue;
 }
 #editContext {
   display: grid;
@@ -44,27 +49,35 @@
   gap: 50px;
 }
 #btnEdit {
-  border: 1px solid black;
+  border: 1px solid lightblue;
   background-color: white;
-  padding: 3px;
+  padding: 10px;
   width: 120px;
-  margin-top: 50px;
+  margin-top: 170px;
   align-items: center;
   border-radius: 9px;
+  position: absolute;
+  right: 300px;
 }
 #inputCss input {
-  border: 1px solid black;
+  border: 1px solid lightblue;
   width: 140px;
   padding: 3px;
   height: 40px;
   background-color: white;
   text-align: center;
   border-radius: 8px;
+  box-shadow: 0px 0px 10px 0px lightblue;
+
+}
+#isTrending{
+  border-radius: 50%;
+  background-color: lightblue;
 }
 #inputCss button{
-  border: 1px solid black;
+  border: 1px solid lightblue;
   width: 140px;
-  padding: 3px;
+  padding: 10px;
   height: 40px;
   background-color: white;
   text-align: center;
@@ -73,21 +86,24 @@
 #editContainer textarea {
   align-items: center;
   justify-content: space-between;
-  border: 1px solid black;
+  border: 1px solid lightblue;
   border-radius: 10px;
   width: 300px;
   height: 300px;
   padding: 10px;
   background-color: white;
+  box-shadow: 0px 0px 10px 0px lightblue;
 }
 #editImg {
   display: flex;
   justify-content: space-between;
 }
 #editImg1 {
-  border: 1px solid black;
+  border: 1px solid lightblue;
   width: 300px;
   height: 300px;
   margin-top: 40px;
   border-radius: 10px;
+  box-shadow: 0px 0px 10px 0px lightblue;
+
 }

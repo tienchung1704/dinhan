@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./Register.css";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const Register = ({ url }) => {
   const navigate = useNavigate();
@@ -22,6 +23,8 @@ const Register = ({ url }) => {
       const response = await axios.post(url + "/api/admin/register", data);
       if (response.data.success) {
         navigate("/login");
+        toast.success("Đăng ký thành công!");
+        window.location.reload();
       } else {
         alert(response.data.message);
       }

@@ -1,23 +1,24 @@
 import React, { useEffect, useState } from "react";
 import "./Navbar.css";
 import axios from "axios";
-import {toast} from "react-toastify"
 import { assets } from "../../assets/assets";
+import {  useLocation, useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { StoreContext } from "../../contexy/UserContext";
 
-const Navbar = ({url}) => {
-    const [list, setList] = useState([]);
-  
-  const fetchList = async () => {
-    const response = await axios.get(`${url}/api/admin/list`);
-    if (response.data.success) {
-      console.log(response.data.data);
-      setList(response.data.data);
-    } else {
-      toast.error("Error");
-    }
+const Navbar = ({ url }) => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const {list , logout, fetchList  } = useContext(StoreContext);
+  const login = () => {
+    navigate("/login");
   };
+  const handleLogout = () => {
+    logout();
+    navigate("/login");
+  }
   useEffect(() => {
-    fetchList();
+    console.log("list", list);
     const toggle = document.getElementById("visual-toggle");
 
     // Function to apply the stored mode preference
@@ -56,17 +57,20 @@ const Navbar = ({url}) => {
           .classList.remove("lightmode");
       }
     });
-  }, []); // Empty dependency array to run the effect only once
+  }, [list]); // Empty dependency array to run the effect only once
   return (
     <div>
       <div className="navbar">
-        <h1>Xin Chao: {list[0].email}</h1>
+        <div className="navaa">
+          <h1>{list?.email ? list.email : "Guest"}</h1>
+          <h4>Dashboard {location.pathname}</h4>
+        </div>
         <div className="toggle-switch">
           <label
             htmlFor="visual-toggle"
             className="switch-label"
             id="visual-toggle-button"
-            onClick="visualMode()"
+            onClick={() => visualMode()}
           >
             <input
               type="checkbox"
@@ -76,7 +80,17 @@ const Navbar = ({url}) => {
             <span className="slider"></span>
           </label>
         </div>
-        <img className="profile" src={assets.profile_image} alt="" />
+        {list.email ? (
+          <ul onClick={handleLogout} className="nav-profile-dropdown">
+            <img src={assets.user} />
+            <p>Logout</p>
+          </ul>
+        ) : (
+          <ul onClick={login} className="nav-profile-dropdown">
+            <img src={assets.user} />
+            <p>Login</p>
+          </ul>
+        )}
       </div>
     </div>
   );

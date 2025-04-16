@@ -35,7 +35,7 @@ useEffect(()=>{
 },[])
 
   return (
-    <div className='order add'>
+    <div className='order list add'>
       <h3>Order Page</h3>
       <div className="order-list">
         {orders.map((order,index)=>(

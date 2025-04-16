@@ -41,7 +41,7 @@ const AddPost = ({ url }) => {
   };
 
   return (
-    <div className="add">
+    <div className="addpost">
       <form className="flex-col" onSubmit={onSubmitHandler}>
         <div className="add-img-upload flex-col">
           <p>Upload Image</p>

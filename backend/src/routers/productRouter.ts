@@ -1,5 +1,6 @@
 import ProductController from "@controllers/ProductController";
 import express, { Router } from 'express';
+import { checkAuth } from "src/middlewares/AuthMiddle";
 import multer from "multer";
 
 const productRouter: Router = express.Router();

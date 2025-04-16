@@ -12,7 +12,6 @@ class CartController {
       } else {
         cartData[req.body.itemId] += 1;
       }
-      console.log("1", cartData);
       await CartService.updateCartData(userId, { cartData: cartData });
       res.json({ success: true, message: "Added to cart" });
     } catch (err) {

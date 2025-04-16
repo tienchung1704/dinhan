@@ -54,3 +54,16 @@
 .cursor{
     cursor: pointer;
 }
+.pagination{
+    width: 240px;
+    border: 1px solid lightblue;
+    align-items: end;
+}
+.pagination button{
+    padding: 10px;
+    border: none;
+    background-color: white;
+    border-radius: 3px;
+    margin: 0 5px;
+    cursor: pointer;
+}

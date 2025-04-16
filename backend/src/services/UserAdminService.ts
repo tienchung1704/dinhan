@@ -4,17 +4,16 @@ const UserAdminRepository = AppDataSource.getRepository(UserAdmin);
 class UserAdminService {
 
   static async loginUser(data: any): Promise<any> {
-    const { email } = data;
     return await UserAdminRepository.findOne({
       where: {
-        email: email,
+        email: data,
       },
     });
   }
-  static async ktEmail(email: any): Promise<any>{
-    return await UserAdminRepository.find({
+  static async ktEmail(id: any): Promise<any>{
+    return await UserAdminRepository.findOne({
       where:{
-        email: email,
+        id: id,
       }
     });
   }

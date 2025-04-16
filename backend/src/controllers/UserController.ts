@@ -5,14 +5,14 @@ import bcrypt from "bcrypt";
 import validator from "validator";
 
 const createToken = (userId: string) => {
-  return jwt.sign({ userId }, "random#secret", { expiresIn: "10s" });
+  return jwt.sign({ userId }, "random#secret", { expiresIn: "15m" });
 };
 
 class UserController {
   static async loginUser(req: Request, res: Response): Promise<any> {
     const email = req.body.email;
     const password = req.body.password;
-    try {
+      try {
       const user = await UserService.loginUser(email);
       if (user.email != email) {
         return res.json({ success: false, message: "User does not exist" });
@@ -22,7 +22,7 @@ class UserController {
         return res.json({ success: false, message: "Incorrect password" });
       } else {
         const token = createToken(user.id);
-        res.json({ success: true, token: token });
+        res.json({ success: true, token: token, data: user.name });
       }
     } catch (err) {
       console.log(err);
@@ -69,7 +69,7 @@ class UserController {
           message: "Password must be atleast 6 characters",
         });
       }
-      if (exists.length === 0) {
+      if (!exists) {
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(password, salt);
         const user = await UserService.addNewUser({
@@ -78,7 +78,7 @@ class UserController {
           password: hashedPassword,
         });
         const token = createToken(user.id);
-        res.json({ success: true, token: token });
+        res.json({ success: true, token: token, data: user.name });
       } else {
         return res.json({ success: false, message: "User already exists" });
       }

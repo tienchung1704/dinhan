@@ -1,17 +1,28 @@
 import UserAdminService from "@services/UserAdminService";
 import e, { Request, Response } from "express";
+import { console } from "inspector";
 import validator from "validator";
 
 class UserAdminController {
   static async loginUser(req: Request, res: Response): Promise<any> {
     const email = req.body.email;
     const password = req.body.password;
+
     try {
       const user = await UserAdminService.loginUser(email);
+      console.log("123", user);
       if (user.email != email) {
         return res.json({ success: false, message: "User does not exist" });
       } else {
-        res.json({ success: true, message: "Dang nhap thanh cong" });
+        if (user.password != password) {
+          return res.json({ success: false, message: "Incorrect password" });
+        } else {
+          res.json({
+            success: true,
+            message: "Dang nhap thanh cong",
+            data: user,
+          });
+        }
       }
     } catch (err) {
       console.log(err);
@@ -19,9 +30,9 @@ class UserAdminController {
     }
   }
   static async fetchListUser(req: Request, res: Response): Promise<any> {
-    const email = req.body.email;
+    const id = req.headers["userid"];
     try {
-      const list = await UserAdminService.ktEmail(email);
+      const list = await UserAdminService.ktEmail(id);
       if (list) {
         res.json({ success: true, data: list });
       }
@@ -33,9 +44,8 @@ class UserAdminController {
     const name = req.body.name;
     const email = req.body.email;
     const password = req.body.password;
-    console.log(req.body);
     try {
-      const exists = await UserAdminService.ktEmail(email);
+      const exists = await UserAdminService.loginUser(email);
       if (!validator.isEmail(email)) {
         return res.json({ success: false, message: "Invalid email" });
       }
@@ -45,7 +55,7 @@ class UserAdminController {
           message: "Password must be atleast 6 characters",
         });
       }
-      if (exists.length === 0) {
+      if (!exists) {
         const user = await UserAdminService.addNewUser({
           name,
           email,

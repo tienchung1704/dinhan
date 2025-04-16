@@ -27,7 +27,6 @@ class CartService {
         user: { id: userId },
       },
     });
-    console.log("user", user);
     if (user.length === 0) {
       await cartRepository.save({ user: { id: userId } });
     }

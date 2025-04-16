@@ -17,6 +17,6 @@ export class UserAdmin {
   @Column({ type: "varchar", nullable: false })
   password: string;
 
-  @Column({type: "varchar", default: "admin"})
+  @Column({type: "varchar", default: "user"})
   role: string;
 }

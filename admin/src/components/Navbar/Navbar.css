@@ -15,9 +15,13 @@
   }
 .navbar {
   display: flex;
-  justify-content: space-between;
   align-items: center;
   padding: 8px 4%;
+  background-color: white;
+  box-shadow: 3px 5px 5px 8px rgba(90, 148, 255, 0.1);
+  border-radius: 12px;
+  width: 90%;
+  height: 100px;
 }
 .navbar .logo {
   width: max(7%, 40px);
@@ -27,7 +31,6 @@
   width: 40px;
 }
 .toggle-switch {
-  position: relative;
   width: 100px;
   height: 50px;
   --light: #d8dbe0;
@@ -395,4 +398,31 @@
 .navbar h1{
   font-size: 24px;
   font-weight: bold;
+  margin-right: 100px;
+  text-shadow: 2px 4px 5px rgba(102, 174, 246, 0.792);
+
+}
+.nav-profile-dropdown{
+  cursor: pointer;
+  right: 200px;
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  width: 100px;
+  align-items: center;
+  gap: 10px;
+}
+.navaa{
+  display: grid;
+  row-gap: 20px;
+}
+.navaa h4{
+  font-size: 20px;
+  font-weight: 400;
+  color: black;
+  text-shadow: 2px 4px 5px rgba(102, 174, 246, 0.792);
+}
+.nav-profile-dropdown img{
+  width: 30px;
+  height: 30px;
 }

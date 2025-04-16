@@ -143,7 +143,7 @@ class OrderController {
           secure: false,
           auth: {
             user: "tien.chungloveu@gmail.com",
-            pass: "btzu wwgu ulfs koqy",
+            pass: ":)",
           },
         });
 
@@ -151,7 +151,7 @@ class OrderController {
           from: '"Cattie Store" <tien.chungloveu@gmail.com>',
           to: order,
           subject: "Thank you for your purchase",
-          html: emailContent, // Gửi HTML làm nội dung email
+          html: emailContent, 
         };
 
         const info = await transporter.sendMail(mailOptions);

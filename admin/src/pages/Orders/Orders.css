@@ -8,6 +8,7 @@
     margin: 30px 0px;
     font-size: 15px;
     color: #505050;
+    box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.1);
 }
 .order-item-food, .order-item-name{
     font-weight: 600;
@@ -34,9 +35,10 @@
 }
 
 .lightcolors .order-item select{
-    background-color: #ffe8e4;
+    background-color: white;
     color: black;
     border: 1px solid lightblue ;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
 }
 
 

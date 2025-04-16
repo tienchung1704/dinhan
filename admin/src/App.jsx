@@ -17,25 +17,28 @@ import Register from "./pages/Register/Register.jsx";
 const App = () => {
   const url = "http://localhost:4000";
   const location = useLocation();
-  const isAuthPage = location.pathname === "/login" || location.pathname === "/register";
+  const isAuthPage =
+    location.pathname === "/login" || location.pathname === "/register";
   return (
     <div>
       <ToastContainer />
-      <Navbar url={url} />
       <hr />
       <div className="app-content">
-      {!isAuthPage && <Sidebar />}
-        <Routes>
-          <Route path="/login" element={<Login url={url} />} />
-          <Route path="/register" element={<Register url={url} />} />
-          <Route path="/add" element={<Add url={url} />} />
-          <Route path="/list" element={<List url={url} />} />
-          <Route path="/orders" element={<Orders url={url} />} />
-          <Route path="/posts" element={<Posts url={url} />} />
-          <Route path="/addpost" element={<Postadd url={url} />} />
-          <Route path="/contact" element={<Contact url={url} />} />
-          <Route path="/edit/:id" element={<EditProduct url={url} />} />
-        </Routes>
+        {!isAuthPage && <Sidebar url={url} />}
+        <div className="app-body">
+        {!isAuthPage && <Navbar url={url} />}
+          <Routes>
+            <Route path="/login" element={<Login url={url} />} />
+            <Route path="/register" element={<Register url={url} />} />
+            <Route path="/add" element={<Add url={url} />} />
+            <Route path="/list" element={<List url={url} />} />
+            <Route path="/orders" element={<Orders url={url} />} />
+            <Route path="/posts" element={<Posts url={url} />} />
+            <Route path="/addpost" element={<Postadd url={url} />} />
+            <Route path="/contact" element={<Contact url={url} />} />
+            <Route path="/edit/:id" element={<EditProduct url={url} />} />
+          </Routes>
+        </div>
       </div>
     </div>
   );

@@ -88,6 +88,7 @@ const EditProduct = ({ url }) => {
                 <input
                   type="checkbox"
                   name="isTrending"
+                  id="isTrending"
                   checked={isTrending}
                   onChange={() => setIsTrending(!isTrending)}
                 />

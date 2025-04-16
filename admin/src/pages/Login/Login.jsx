@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { StoreContext } from "../../contexy/UserContext";
 import "./Login.css";
 import axios from "axios";
+import { toast } from "react-toastify";
 
-const Login = ({url}) => {
+const Login = ({ url }) => {
   const navigate = useNavigate();
   const [data, setData] = useState({ email: "", password: "" });
-
+  const { handleLogin, fetchList } = useContext(StoreContext);
   useEffect(() => {
     console.log("adada", data);
   }, [data]);
@@ -21,7 +23,10 @@ const Login = ({url}) => {
     try {
       const response = await axios.post(url + "/api/admin/login", data);
       if (response.data.success) {
-        navigate("/add");
+        toast.success("Đăng nhập thành công!");
+        localStorage.setItem("userId", response.data.data.id);        localStorage.setItem("userId", response.data.data.id);
+        handleLogin();
+        navigate("/");
       } else {
         alert(response.data.message);
       }
@@ -36,11 +41,21 @@ const Login = ({url}) => {
           <h1>Login Form</h1>
           <div className="inputUserAdmin">
             <span htmlFor="email">email:</span>
-            <input onChange={onChangeHandler} value={data.email} type="email" name="email" />
+            <input
+              onChange={onChangeHandler}
+              value={data.email}
+              type="email"
+              name="email"
+            />
           </div>
           <div className="inputPasswordAdmin">
             <span htmlFor="password">Password:</span>
-            <input onChange={onChangeHandler} value={data.password} type="password" name="password" />
+            <input
+              onChange={onChangeHandler}
+              value={data.password}
+              type="password"
+              name="password"
+            />
           </div>
           <Link id="registerContext" to="/register">
             Register here.
