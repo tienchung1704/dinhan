@@ -142,13 +142,13 @@ class OrderController {
           port: 587,
           secure: false,
           auth: {
-            user: "tien.chungloveu@gmail.com",
-            pass: ":)",
+            user: "binnguyen09112003@gmail.com",
+            pass: process.env.EMAIL_APP_PASSWORD,
           },
         });
 
         const mailOptions = {
-          from: '"Cattie Store" <tien.chungloveu@gmail.com>',
+          from: '"Dinh An Store" <binnguyen09112003@gmail.com>',
           to: order,
           subject: "Thank you for your purchase",
           html: emailContent, 
