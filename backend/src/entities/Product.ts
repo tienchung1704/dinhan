@@ -25,4 +25,7 @@ export class Product {
 
     @Column({ type: "varchar", nullable: false })
     category: string;
+
+    @Column({ type: "varchar", nullable: true})
+    title: string;
 }

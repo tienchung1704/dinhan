@@ -4,7 +4,8 @@ import { checkAuth } from "src/middlewares/AuthMiddle";
 
 const orderRouter: Router = express.Router();
 
-orderRouter.post("/place", checkAuth, OrderController.placeOrder);
+orderRouter.post("/place/stripe", checkAuth, OrderController.placeOrder);
+orderRouter.post("/place/paypal", checkAuth, OrderController.placeOrderPaypal);
 orderRouter.post("/verify", OrderController.verifyOrder);
 orderRouter.post("/userorders", checkAuth, OrderController.userOrder);
 orderRouter.get("/list",  OrderController.listOrder);

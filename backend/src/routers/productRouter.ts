@@ -19,4 +19,6 @@ productRouter.get("/list", ProductController.listProduct);
 productRouter.post("/remove", ProductController.removeProduct);
 productRouter.get("/:id",ProductController.getProductDetail);
 productRouter.post("/edit/:id", ProductController.editProductById);
+productRouter.post("/:category/:title", ProductController.searchProduct);
+
 export default productRouter;

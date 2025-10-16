@@ -17,6 +17,7 @@ class ProductController {
     const description = req.body.description;
     const category = req.body.category;
     const isTrending = req.body.isTrending;
+    const title = req.body.title;
     const image = image_filename;
     try {
       await ProductService.addProduct({
@@ -25,6 +26,7 @@ class ProductController {
         description,
         category,
         image,
+        title,
         isTrending,
       });
       res.json({ success: true, message: "Added" });
@@ -33,7 +35,7 @@ class ProductController {
       res.json({ success: false, message: "Error" });
     }
   }
-  static async listProduct(_: any, res: Response): Promise<any> {
+  static async listProduct(req: Request, res: Response): Promise<any> {
     try {
       const lists = await ProductService.getProduct();
       return res.json({ success: true, data: lists });
@@ -65,17 +67,43 @@ class ProductController {
       res.json({ success: false, message: "Not found" });
     }
   }
-  static async editProductById(req: Request, res: Response): Promise<any>{
-    const { name , price , description , isTrending , category} = req.body
-    const id: String = req.params.id;
-    console.log("Headers:", req.headers);
-    console.log("Body:", req.body);
-    console.log("Params:", req.params);    try{
-      await ProductService.updateProductById({ id, name, price, description, isTrending, category })
-      res.json({success: true , message : "successfully"})
+  static async editProductById(req: Request, res: Response): Promise<any> {
+    const { name, price, description, isTrending, category, title } = req.body;
+    console.log({ name, price, description, category, title, isTrending });
 
-    }catch(err){
-      res.json({success: false , message : "cant update"})
+    const id: String = req.params.id;
+    try {
+      await ProductService.updateProductById({
+        id,
+        name,
+        price,
+        description,
+        isTrending,
+        title,
+        category,
+      });
+      res.json({ success: true, message: "successfully" });
+    } catch (err) {
+      res.json({ success: false, message: "cant update" });
+    }
+  }
+  static async searchProduct(req: Request, res: Response): Promise<any> {
+    const { category, title } = req.params;
+    try {
+      const danhSach = await ProductService.getProductByCateAndByName(
+        category,
+        title
+      );
+      if (danhSach && danhSach.length > 0) {
+        res.json({ success: true, danhSach: danhSach });
+      } else {
+        res.json({
+          success: false,
+          message: "Khong co san pham phu hop voi tim kiem",
+        });
+      }
+    } catch (err) {
+      console.log(err);
     }
   }
 }

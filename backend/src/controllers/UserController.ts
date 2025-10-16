@@ -5,7 +5,7 @@ import bcrypt from "bcrypt";
 import validator from "validator";
 
 const createToken = (userId: string) => {
-  return jwt.sign({ userId }, "random#secret", { expiresIn: "15m" });
+  return jwt.sign({ userId }, "random#secret");
 };
 
 class UserController {

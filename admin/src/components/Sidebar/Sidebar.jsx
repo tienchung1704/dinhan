@@ -2,7 +2,7 @@ import React from "react";
 import "./Sidebar.css";
 import { NavLink } from "react-router-dom";
 import { assets } from "../../assets/assets";
-import {  useContext } from "react";
+import { useContext } from "react";
 import { StoreContext } from "../../contexy/UserContext";
 import { useNavigate } from "react-router-dom";
 
@@ -10,18 +10,21 @@ const Sidebar = ({ url }) => {
   const { list, logout } = useContext(StoreContext);
   const navigate = useNavigate();
   const login = () => {
-    navigate('/login');
+    navigate("/login");
   };
   const handleLogout = () => {
     logout();
     navigate("/login");
-  }
+  };
   return (
     <div className="sidebar">
       <div className="sidebar-options">
         <div className="card p-5 shadow-purple-200/50 rounded-md">
           <ul className="w-full flex flex-col gap-2">
-            <h2>Admin Dashboard</h2>
+            <NavLink to="/" className="logo flex-center mb-10">
+              {" "}
+              <h2>Admin Dashboard</h2>
+            </NavLink>
             <button
               className={`flex-center cursor-pointer p-16-semibold w-full whitespace-nowrap ${
                 list.role === "user" ? "pointer-events-none opacity-50" : ""

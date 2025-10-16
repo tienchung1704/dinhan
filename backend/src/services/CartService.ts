@@ -32,6 +32,17 @@ class CartService {
     }
     return user;
   }
+  static async getGiamGiaDiem(userId: string): Promise<any>{
+     const user = await userRepository.findOne({
+      where: {
+        id: userId
+      },
+      select: [
+        "giamGia"
+      ]
+    })
+    return user?.giamGia ?? null
+  }
 }
 
 export default CartService;

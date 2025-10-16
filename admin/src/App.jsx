@@ -1,4 +1,3 @@
-import React from "react";
 import Navbar from "./components/Navbar/Navbar";
 import Sidebar from "./components/Sidebar/Sidebar";
 import { Routes, Route, useLocation } from "react-router-dom";
@@ -13,6 +12,7 @@ import "react-toastify/dist/ReactToastify.css";
 import EditProduct from "./pages/EditProduct/EditProduct.jsx";
 import Login from "./pages/Login/Login.jsx";
 import Register from "./pages/Register/Register.jsx";
+import Home from "./pages/Home/Home.jsx";
 
 const App = () => {
   const url = "http://localhost:4000";
@@ -26,10 +26,11 @@ const App = () => {
       <div className="app-content">
         {!isAuthPage && <Sidebar url={url} />}
         <div className="app-body">
-        {!isAuthPage && <Navbar url={url} />}
+          {!isAuthPage && <Navbar url={url} />}
           <Routes>
             <Route path="/login" element={<Login url={url} />} />
             <Route path="/register" element={<Register url={url} />} />
+            <Route path="/" element={<Home />} />
             <Route path="/add" element={<Add url={url} />} />
             <Route path="/list" element={<List url={url} />} />
             <Route path="/orders" element={<Orders url={url} />} />

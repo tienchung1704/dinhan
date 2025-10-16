@@ -1,136 +1,215 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./EditProduct.css";
 import { useParams, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 
+const GiayItems = [
+  "Giày cầu lông Kawasaki",
+  "Giày cầu lông Kumpo",
+  "Giày cầu lông Lining",
+  "Giày cầu lông Mizuno",
+  "Giày cầu lông Victor",
+  "Giày cầu lông Yonex",
+];
+
+const MayItems = ["Việt Nam", "Nhật Bản", "Trung Quốc", "Hoa Kỳ"];
+
+const PhuKienItems = [
+  "Dây căng vợt",
+  "Hộp Cầu lông",
+  "Cuốn cán",
+  "Băng chặn mồ hôi",
+];
+
+const VotItems = [
+  "Vợt cầu lông Lining",
+  "Vợt cầu lông Yonex",
+  "Vợt cầu lông Kumpoo",
+  "Vợt cầu lông Victor",
+  "Vợt cầu lông Mizuno",
+  "Vợt cầu lông VS",
+  "Vợt cầu lông Wsport",
+];
+
+const BaloItems = ["Balo Victor", "Balo Yonex", "Balo Lining"];
+
+const AoItems = [
+  "Áo cầu lông Lining",
+  "Áo cầu lông Yonex",
+  "Áo cầu lông Victor",
+  "Áo cầu lông Coolmax 1",
+  "Áo cầu lông Coolmax 2",
+];
+
+const categories = [
+  { title: "Balo cầu lông", items: BaloItems },
+  { title: "Áo cầu lông", items: AoItems },
+  { title: "Giày thể thao", items: GiayItems },
+  { title: "Máy Căng Vợt", items: MayItems },
+  { title: "Phụ kiện", items: PhuKienItems },
+  { title: "Vợt cầu lông", items: VotItems },
+];
+
 const EditProduct = ({ url }) => {
   const navigate = useNavigate();
+  const { id } = useParams();
+
+  const [product, setProduct] = useState({});
+  const [isTrending, setIsTrending] = useState(false);
+
   const [data, setData] = useState({
     name: "",
     price: "",
     category: "",
     description: "",
+    title: "", // thêm field này
   });
-  const [isTrending, setIsTrending] = useState(false);
 
-  const onChangeHandler = (event) => {
-    const name = event.target.name;
-    const value = event.target.value;
-    setData((data) => ({ ...data, [name]: value }));
+  const onChangeHandler = (e) => {
+    const { name, value } = e.target;
+    setData((prev) => ({ ...prev, [name]: value }));
   };
-  const { id } = useParams();
-  const [product, setProduct] = useState({});
 
   const onSubmitHandler = async (event) => {
     event.preventDefault();
+
     const formData = new FormData();
     formData.append("name", data.name);
     formData.append("description", data.description);
     formData.append("price", data.price);
     formData.append("category", data.category);
+    formData.append("title", data.title);
     formData.append("isTrending", isTrending ? 1 : 0);
-    const response = await axios.post(`${url}/api/food/edit/${product.id}`, formData, {
-      headers: { "Content-Type": "application/json" } 
-    });
-    if (response.data.success) {
-      navigate("/list");
-      toast.success(response.data.message);
-    } else {
-      toast.error("error");
+
+    try {
+      const response = await axios.post(`${url}/api/food/edit/${product.id}`, formData);
+      if (response.data.success) {
+        toast.success(response.data.message);
+        navigate("/list");
+      } else {
+        toast.error(response.data.message || "Lỗi khi cập nhật");
+      }
+    } catch (error) {
+      toast.error("Lỗi kết nối tới server!");
+      console.error(error);
     }
   };
+
   useEffect(() => {
     axios.get(`${url}/api/food/${id}`).then((response) => {
       if (response.data.success) {
-        setProduct(response.data.data);
+        const prod = response.data.data;
+        setProduct(prod);
         setData({
-          name: response.data.data.name ,
-          price: response.data.data.price ,
-          category: response.data.data.category ,
-          description: response.data.data.description ,
+          name: prod.name,
+          price: prod.price,
+          category: prod.category,
+          description: prod.description,
+          title: prod.title 
         });
-        setIsTrending(response.data.data.isTrending);
+        setIsTrending(prod.isTrending);
       } else {
         toast.error(response.data.message);
       }
     });
-  }, []);
+  }, [id, url]);
+
+  // 🔹 Tìm category hiện tại để hiển thị danh sách sản phẩm con
+  const selectedCategory = categories.find(
+    (c) => c.title === data.category
+  ) || categories[0];
+
   return (
     <div>
       {product ? (
         <form onSubmit={onSubmitHandler}>
           <div id="editContainer">
             <div id="editContext">
-              {" "}
               <div id="inputCss">
-                <span htmlFor="name">Name:</span>
+                <span>Name:</span>
                 <input
                   onChange={onChangeHandler}
                   type="text"
                   name="name"
-                  placeholder={product.name}
+                  value={data.name}
+                  placeholder="Tên sản phẩm"
                 />
               </div>
+
               <div id="inputCss">
-                <span htmlFor="price">price:</span>
+                <span>Price:</span>
                 <input
-                  type="text"
+                  type="number"
                   name="price"
                   onChange={onChangeHandler}
-                  placeholder={product.price}
+                  value={data.price}
+                  placeholder="Giá"
                 />
               </div>
+
               <div id="inputCss">
-                {" "}
-                <span htmlFor="isTrending">isTrending:</span>
+                <span>Trending:</span>
                 <input
                   type="checkbox"
                   name="isTrending"
-                  id="isTrending"
                   checked={isTrending}
                   onChange={() => setIsTrending(!isTrending)}
                 />
               </div>
               <div id="inputCss">
-                <span htmlFor="category">category:</span>
+                <span>Category:</span>
                 <select
                   className="selectt"
                   name="category"
-                  id="inputCate"
-                  value={product.category}
-                  onChange={onChangeHandler}
+                  value={data.category}
+              onChange={onChangeHandler}
                 >
-                  <option value="Cat Trees">Cat Trees</option>
-                  <option value="Fall Arrivals">Fall Arrivals</option>
-                  <option value="For Cats">For Cats</option>
-                  <option value="Gift Guide">Gift Guide</option>
-                  <option value="Apparel">Apparel</option>
-                  <option value="Print Your Pet">Print Your Pet</option>
+                  {categories.map((cate, index) => (
+                    <option key={index} value={cate.title}>
+                      {cate.title}
+                    </option>
+                  ))}
+                </select>
+
+                <select
+                  className="selectt"
+                  name="title"
+                  value={data.title}
+                  onChange={onChangeHandler}
+                  required
+                >
+                  <option value="">-- Chọn sản phẩm --</option>
+                  {selectedCategory.items.map((item, i) => (
+                    <option key={i} value={item}>
+                      {item}
+                    </option>
+                  ))}
                 </select>
               </div>
             </div>
+
             <div id="nonono">
               <div id="yesyesyes123">
                 <div id="editDescription">
-                  <span htmlFor="description">description:</span>
+                  <span>Description:</span>
                   <textarea
-                    type="text"
                     name="description"
+                    value={data.description}
                     onChange={onChangeHandler}
-                    placeholder={product.description}
+                    placeholder="Mô tả sản phẩm"
                   />
                 </div>
+
                 <div id="editImg">
                   <img
                     id="editImg1"
-                    name="image122"
                     src={`${url}/images/` + product.image}
                     alt=""
                   />
                 </div>
               </div>
+
               <button id="btnEdit" type="submit">
                 Edit
               </button>

@@ -1,6 +1,7 @@
 import CartService from "@services/CartService";
 import UserService from "@services/UserService";
 import { Request, Response } from "express";
+
 class CartController {
   static async addToCart(req: Request, res: Response): Promise<any> {
     try {
@@ -43,7 +44,8 @@ class CartController {
       const userId = req.body.userId;
       let userData = await CartService.getCartData(userId);
       let cartData = userData[0].cartData || {};
-      res.json({ success: true, cartData });
+      const giamGia = await CartService.getGiamGiaDiem(userId);
+      res.json({ success: true, cartData, giamGia });
     } catch (err) {
       console.log(err);
       res.json({ success: false, message: err });

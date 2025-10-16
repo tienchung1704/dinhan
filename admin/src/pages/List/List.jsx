@@ -82,7 +82,7 @@ const List = ({ url }) => {
             <img src={`${url}/images/` + item.image} alt="" />
             <p>{item.name}</p>
             <p>{item.category}</p>
-            <p>{item.price}$</p>
+            <p>{(item.price * 26500).toLocaleString("vi-VN")} VND</p>
             <div className="btn-action">
               <button onClick={() => EditProduct(item.id)} className="btn-edit">
                 Edit

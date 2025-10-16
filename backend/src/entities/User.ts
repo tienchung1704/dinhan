@@ -11,7 +11,7 @@ export class User {
   @PrimaryGeneratedColumn("uuid")
   id: string;
 
-  @Column({ type: "varchar", length: 255, nullable: true, unique: true })
+  @Column({ type: "varchar", length: 255, nullable: false, unique: true })
   name: string;
 
   @Column({ type: "varchar", length: 255, unique: true, nullable: false })
@@ -22,4 +22,6 @@ export class User {
 
   @Column({ type: "varchar", nullable: false })
   password: string;
+  @Column({ type: "float", default: 0})
+  giamGia: Number;
 }
